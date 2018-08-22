@@ -7,11 +7,17 @@
     tools:context=".FormularioActivity">
 <TextView
     android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:id="@+id/tvTexto"/>
+    android:layout_height="wrap_content"
+    android:id="@+id/tvTexto"
+    android:text="Segunda Actividad"/>
+
     <Button
+        android:id="@+id/btCerrar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/btCerrar"
-        android:onClick="onClick"/>
+        android:layout_marginStart="64dp"
+        android:onClick="onClick"
+        android:text="Responder"
+        app:layout_constraintStart_toEndOf="@id/tvTexto"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>
