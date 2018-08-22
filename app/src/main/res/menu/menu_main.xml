@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/mnGuardar"
+        android:title="Guardar"
+        app:showAsAction="always"
+        android:icon="@android:drawable/ic_menu_add"
+        ></item>
+    <item android:id="@+id/mnGrupo"
+        android:title="Opciones"
+        app:showAsAction="ifRoom">
+        <menu>
+            <item android:id="@+id/mnLlamar"
+                android:title="Llamar"></item>
+            <item android:id="@+id/mnWeb"
+                android:title="Web"></item>
+        </menu>
+    </item>
+    <item android:id="@+id/mnAcercaDe"
+        android:title="Acerca De"
+        app:showAsAction="never"
+        ></item>
+</menu>
