@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 
@@ -19,8 +20,9 @@ public class FormularioActivity extends AppCompatActivity {
     }
     public  void onClick(View view)
     {
+        EditText tvMensaje =  (EditText) findViewById(R.id.etMensaje);
         Intent i = new Intent();
-        i.putExtra("Datos","como estas");
+        i.putExtra("Datos",tvMensaje.getText().toString());
         setResult(RESULT_OK,i);
         finish();
     }

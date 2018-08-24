@@ -4,17 +4,34 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private ListView lvMensajes;
+    private List<String> mensajesList= new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        TextView view = (TextView) findViewById(R.id.tvTexto);
+        lvMensajes= (ListView) findViewById(R.id.lvMensajes);
+        ArrayAdapter adapter= new ArrayAdapter(this,
+                android.R.layout.simple_list_item_1,mensajesList);
+        lvMensajes.setAdapter(adapter);
+        registerForContextMenu(lvMensajes);
     }
 
     @Override
@@ -68,9 +85,41 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode==RESULT_OK) //FormularioActivity mando un Ok o un Cancel
             {
                 //data contiene el valor que se regreso desde FormularioActivity
-                Toast.makeText(this, data.getStringExtra("Datos")
-                        , Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, data.getStringExtra("Datos")
+                  //      , Toast.LENGTH_SHORT).show();
+
+                mensajesList.add(data.getStringExtra("Datos"));
+                ArrayAdapter adapter = (ArrayAdapter) lvMensajes.getAdapter();
+                adapter.notifyDataSetChanged();
+
             }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.contextmenu,menu);
+        super.onCreateContextMenu(menu, v, menuInfo);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        //TextView view = (TextView) findViewById(R.id.tvTexto);
+        //view.setText("");
+
+        if(item.getItemId()==R.id.mnVacio)
+        {
+            mensajesList.clear();
+        }
+        else if(item.getItemId()==R.id.mnEliminar)
+        {
+            AdapterView.AdapterContextMenuInfo info =
+                    (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+            mensajesList.remove(info.position);
+        }
+        ArrayAdapter adapter = (ArrayAdapter) lvMensajes.getAdapter();
+        adapter.notifyDataSetChanged();
+        return super.onContextItemSelected(item);
     }
 }
